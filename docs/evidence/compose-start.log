@@ -1,0 +1,359 @@
+ Image fulfillment/order-service:local Building 
+ Image fulfillment/provider-simulator:local Building 
+ Image fulfillment/customer-bff:local Building 
+ Image fulfillment/shipping-service:local Building 
+ Image fulfillment/inventory-service:local Building 
+ Image fulfillment/payment-service:local Building 
+ Image fulfillment/order-query-service:local Building 
+ Image fulfillment/api-gateway:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 5.00kB done
+#1 DONE 0.0s
+
+#2 [order-service internal] load build definition from Dockerfile
+#2 transferring dockerfile: 538B done
+#2 DONE 0.0s
+
+#3 [shipping-service internal] load metadata for docker.io/library/eclipse-temurin:21-jre-jammy
+#3 DONE 1.8s
+
+#4 [payment-service internal] load .dockerignore
+#4 transferring context: 101B done
+#4 DONE 0.0s
+
+#5 [customer-bff 1/4] FROM docker.io/library/eclipse-temurin:21-jre-jammy@sha256:54b382c9d790d3201004d4e3921f4eff7dc7d67e1ce21a2da8d8faaaf63c85fc
+#5 resolve docker.io/library/eclipse-temurin:21-jre-jammy@sha256:54b382c9d790d3201004d4e3921f4eff7dc7d67e1ce21a2da8d8faaaf63c85fc
+#5 resolve docker.io/library/eclipse-temurin:21-jre-jammy@sha256:54b382c9d790d3201004d4e3921f4eff7dc7d67e1ce21a2da8d8faaaf63c85fc 0.1s done
+#5 DONE 0.1s
+
+#6 [inventory-service internal] load build context
+#6 ...
+
+#7 [customer-bff internal] load build context
+#7 transferring context: 68.84MB 1.8s done
+#7 DONE 1.9s
+
+#8 [inventory-service 2/4] RUN groupadd --gid 10001 app && useradd --uid 10001 --gid app --no-create-home app && apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [inventory-service 3/4] WORKDIR /app
+#9 CACHED
+
+#6 [inventory-service internal] load build context
+#6 ...
+
+#10 [api-gateway internal] load build context
+#10 transferring context: 73.89MB 1.9s done
+#10 DONE 2.0s
+
+#6 [inventory-service internal] load build context
+#6 ...
+
+#11 [customer-bff 4/4] COPY --chown=10001:10001 customer-bff/target/customer-bff-1.0.0-SNAPSHOT.jar /app/app.jar
+#11 DONE 0.5s
+
+#12 [api-gateway 4/4] COPY --chown=10001:10001 api-gateway/target/api-gateway-1.0.0-SNAPSHOT.jar /app/app.jar
+#12 DONE 0.5s
+
+#6 [inventory-service internal] load build context
+#6 transferring context: 110.42MB 2.7s done
+#6 DONE 2.7s
+
+#13 [provider-simulator internal] load build context
+#13 transferring context: 110.42MB 2.7s done
+#13 DONE 2.7s
+
+#14 [order-query-service internal] load build context
+#14 transferring context: 110.42MB 2.7s done
+#14 DONE 2.7s
+
+#15 [payment-service internal] load build context
+#15 transferring context: 110.42MB 2.7s done
+#15 DONE 2.8s
+
+#16 [order-service internal] load build context
+#16 transferring context: 110.42MB 2.6s done
+#16 DONE 2.8s
+
+#17 [order-query-service 4/4] COPY --chown=10001:10001 order-query-service/target/order-query-service-1.0.0-SNAPSHOT.jar /app/app.jar
+#17 ...
+
+#18 [shipping-service internal] load build context
+#18 transferring context: 110.42MB 2.7s done
+#18 DONE 2.8s
+
+#19 [shipping-service 4/4] COPY --chown=10001:10001 shipping-service/target/shipping-service-1.0.0-SNAPSHOT.jar /app/app.jar
+#19 DONE 0.9s
+
+#20 [api-gateway] exporting to image
+#20 exporting layers
+#20 ...
+
+#21 [inventory-service 4/4] COPY --chown=10001:10001 inventory-service/target/inventory-service-1.0.0-SNAPSHOT.jar /app/app.jar
+#21 DONE 1.0s
+
+#22 [payment-service 4/4] COPY --chown=10001:10001 payment-service/target/payment-service-1.0.0-SNAPSHOT.jar /app/app.jar
+#22 DONE 1.0s
+
+#23 [provider-simulator 4/4] COPY --chown=10001:10001 provider-simulator/target/provider-simulator-1.0.0-SNAPSHOT.jar /app/app.jar
+#23 DONE 1.0s
+
+#17 [order-query-service 4/4] COPY --chown=10001:10001 order-query-service/target/order-query-service-1.0.0-SNAPSHOT.jar /app/app.jar
+#17 DONE 1.0s
+
+#24 [order-service 4/4] COPY --chown=10001:10001 order-service/target/order-service-1.0.0-SNAPSHOT.jar /app/app.jar
+#24 DONE 1.0s
+
+#25 [order-service] exporting to image
+#25 ...
+
+#26 [customer-bff] exporting to image
+#26 exporting layers 2.9s done
+#26 exporting manifest sha256:bf5c9d20bc8da5e31faa1c376fe74aa81610d89eeaba03e5bcb6ec10d9744e77 0.1s done
+#26 exporting config sha256:bf20724ce9fee0cad5de0ca6343fb93f9ca894aa2899b07ee3be49b9c098c7d2 0.0s done
+#26 exporting attestation manifest sha256:61ea8fd1cd143e95a21b1e2f4ed817ed8dcfa1f044ba7a3925472fea2b789f45 0.1s done
+#26 exporting manifest list sha256:7447063a6211b55781995b770ac3fb14dbd488e6e79a11e1fdd66f6c644a85d5 0.0s done
+#26 naming to docker.io/fulfillment/customer-bff:local 0.0s done
+#26 unpacking to docker.io/fulfillment/customer-bff:local 0.9s done
+#26 DONE 4.2s
+
+#20 [api-gateway] exporting to image
+#20 exporting layers 3.1s done
+#20 exporting manifest sha256:f65045fc71143c3012d1665ce191fb5f59d2937ebf8e6b39ff5e2dc331d511ee 0.0s done
+#20 exporting config sha256:b5a83c8f485ac81470716c5e8690535d4fd47bb6d4094cded5bec9c70c142c3f 0.0s done
+#20 exporting attestation manifest sha256:d4df4c1aa99f3e23208e854af5541c9071c46f77f29139a4c7a1a3fc4d72da46 0.1s done
+#20 exporting manifest list sha256:936fe644fcfb5967b2a5ee08c73e9e089304faedc23a10b1ef115ffb2feb7388 0.0s done
+#20 naming to docker.io/fulfillment/api-gateway:local done
+#20 unpacking to docker.io/fulfillment/api-gateway:local 1.0s done
+#20 DONE 4.5s
+
+#27 [order-query-service] exporting to image
+#27 ...
+
+#28 [customer-bff] resolving provenance for metadata file
+#28 DONE 0.1s
+
+#29 [api-gateway] resolving provenance for metadata file
+#29 DONE 0.0s
+
+#30 [provider-simulator] exporting to image
+#30 exporting layers 5.0s done
+#30 exporting manifest sha256:688de93eaf8aa690bb8a8e7dbf91dca745fc1e9e96775ffef9f3534f850ce52c
+#30 exporting manifest sha256:688de93eaf8aa690bb8a8e7dbf91dca745fc1e9e96775ffef9f3534f850ce52c 0.1s done
+#30 exporting config sha256:3cf8da4ce95c2a8508da4517408795f8109be51014df161e891371b451c60e2f
+#30 ...
+
+#27 [order-query-service] exporting to image
+#27 exporting layers 5.1s done
+#27 exporting manifest sha256:ce99b06af506bd7165c367a546b6e6a7cd580df595eea2c14e752b7faf7b99e7
+#27 exporting manifest sha256:ce99b06af506bd7165c367a546b6e6a7cd580df595eea2c14e752b7faf7b99e7 0.1s done
+#27 exporting config sha256:ffe73f1944db97898453e36d5859b7075360dc149e5824cee0337a0a90bc3e34
+#27 exporting config sha256:ffe73f1944db97898453e36d5859b7075360dc149e5824cee0337a0a90bc3e34 0.1s done
+#27 exporting attestation manifest sha256:b762089c3157b82ed8522a8d3639f086156eb63b266faf7534b3fa0e9c16b93f
+#27 exporting attestation manifest sha256:b762089c3157b82ed8522a8d3639f086156eb63b266faf7534b3fa0e9c16b93f 0.2s done
+#27 exporting manifest list sha256:82fbe748e20a56b29c816c0a9c748cdb2ff8bcd9f82ec2fb398d39686bce37b9 0.0s done
+#27 naming to docker.io/fulfillment/order-query-service:local
+#27 naming to docker.io/fulfillment/order-query-service:local 0.0s done
+#27 unpacking to docker.io/fulfillment/order-query-service:local
+#27 ...
+
+#25 [order-service] exporting to image
+#25 exporting layers 5.0s done
+#25 exporting manifest sha256:e59e7db94bcf57abd55aff7b9a9dc71b7d07fe86b43db56f3b2f7ddd41883064 0.1s done
+#25 exporting config sha256:211e0c35d17a41b347fadd88ee866b34f2f9177d9ca3b7390f3af5f1dcb1327e 0.1s done
+#25 exporting attestation manifest sha256:69c1a512cf0a70da33129f6c13caada37dbb3678f52698352d9849715f7706d9 0.2s done
+#25 exporting manifest list sha256:27a42d30e91b6277e1c47560cc9d1fa16850375ddaa0dfc7aef627b9729a48ab 0.1s done
+#25 naming to docker.io/fulfillment/order-service:local 0.0s done
+#25 unpacking to docker.io/fulfillment/order-service:local 1.4s done
+#25 DONE 7.0s
+
+#27 [order-query-service] exporting to image
+#27 unpacking to docker.io/fulfillment/order-query-service:local 1.4s done
+#27 DONE 7.1s
+
+#31 [shipping-service] exporting to image
+#31 exporting layers 5.1s done
+#31 exporting manifest sha256:7a57508673ed673b853ba8e7e4d850b2b0bf9bdbdae019059cd2e1f46dc7e1b0 0.1s done
+#31 exporting config sha256:7bab2fdde1b5a759d8c2f5748da9e87bfd59e4011b1f4beafa4c8f504e208608 0.1s done
+#31 exporting attestation manifest sha256:ccfcf4d3714e300b85450776138ecc11dab4043a6cbf056beec56afb700615de 0.2s done
+#31 exporting manifest list sha256:aafcfc6be41f3c58c35e7972f46043982ff99bf4a5e9f0496f5d0a70d81788c5 0.1s done
+#31 naming to docker.io/fulfillment/shipping-service:local 0.0s done
+#31 unpacking to docker.io/fulfillment/shipping-service:local 1.5s done
+#31 DONE 7.2s
+
+#32 [inventory-service] exporting to image
+#32 exporting layers 5.1s done
+#32 exporting manifest sha256:22750e69f43f26a9725739eae826d8fd3f65c6f6030d42ef6db517b4f9c6d321 0.1s done
+#32 exporting config sha256:674e772600503a80eea2cee8a54f840abb449bca3d13396a6f2e88d6d681ba59 0.1s done
+#32 exporting attestation manifest sha256:67b90bab15ab497d5baa6f7853ee90311d5e3e4c267262f068f19f688099bfae 0.2s done
+#32 exporting manifest list sha256:a81e231dba4cfd51efd80a6da6ec89ae4b4a0be38332ced08ed16d27c4cd3228 0.1s done
+#32 naming to docker.io/fulfillment/inventory-service:local 0.0s done
+#32 unpacking to docker.io/fulfillment/inventory-service:local 1.5s done
+#32 DONE 7.2s
+
+#30 [provider-simulator] exporting to image
+#30 exporting config sha256:3cf8da4ce95c2a8508da4517408795f8109be51014df161e891371b451c60e2f 0.1s done
+#30 exporting attestation manifest sha256:f3e5e4c39a0b612686211c14c94853160497fdc43337307dc5202578fda014ce 0.2s done
+#30 exporting manifest list sha256:764f0ab50ef729d7c29064007976adbc561a26a167330ed351311be84ef92592 0.1s done
+#30 naming to docker.io/fulfillment/provider-simulator:local 0.0s done
+#30 unpacking to docker.io/fulfillment/provider-simulator:local 1.5s done
+#30 DONE 7.2s
+
+#33 [payment-service] exporting to image
+#33 exporting layers 5.1s done
+#33 exporting manifest sha256:26568b6e0ad93d953f1cd445e3d30ac752d81bbc1aacc798ec87354414f52479 0.1s done
+#33 exporting config sha256:04c4efc46bbc2a2e14557fc5a813bc91efdb454d80f4bf5e62c1fd8c5b7383f7 0.1s done
+#33 exporting attestation manifest sha256:b8972f8c36fc5b4787e6e6ec3d53f11571cdc05a25fa593541e498fc1a6b1007 0.2s done
+#33 exporting manifest list sha256:29c808d5b23c6e2000ffdf9e0ec3c9ff66bba0afa88f857876664dee8f448558 0.1s done
+#33 naming to docker.io/fulfillment/payment-service:local 0.0s done
+#33 unpacking to docker.io/fulfillment/payment-service:local 1.6s done
+#33 DONE 7.2s
+
+#34 [order-service] resolving provenance for metadata file
+#34 ...
+
+#35 [order-query-service] resolving provenance for metadata file
+#35 DONE 0.2s
+
+#36 [shipping-service] resolving provenance for metadata file
+#36 DONE 0.1s
+
+#34 [order-service] resolving provenance for metadata file
+#34 DONE 0.2s
+
+#37 [provider-simulator] resolving provenance for metadata file
+#37 DONE 0.1s
+
+#38 [payment-service] resolving provenance for metadata file
+#38 DONE 0.0s
+
+#39 [inventory-service] resolving provenance for metadata file
+#39 DONE 0.0s
+ Image fulfillment/inventory-service:local Built 
+ Image fulfillment/order-query-service:local Built 
+ Image fulfillment/api-gateway:local Built 
+ Image fulfillment/customer-bff:local Built 
+ Image fulfillment/shipping-service:local Built 
+ Image fulfillment/provider-simulator:local Built 
+ Image fulfillment/payment-service:local Built 
+ Image fulfillment/order-service:local Built 
+ Container fulfillment-keycloak-1 Running 
+ Container fulfillment-shipping-service-db-1 Running 
+ Container fulfillment-kafka-1 Running 
+ Container fulfillment-inventory-service-db-1 Running 
+ Container fulfillment-provider-simulator-db-1 Running 
+ Container fulfillment-otel-collector-1 Running 
+ Container fulfillment-redis-1 Running 
+ Container fulfillment-order-query-service-db-1 Running 
+ Container fulfillment-payment-service-db-1 Running 
+ Container fulfillment-order-service-db-1 Running 
+ Container fulfillment-api-gateway-1 Recreate 
+ Container fulfillment-order-query-service-1 Recreate 
+ Container fulfillment-provider-simulator-1 Recreate 
+ Container fulfillment-customer-bff-1 Recreate 
+ Container fulfillment-order-service-1 Recreate 
+ Container fulfillment-inventory-service-1 Recreate 
+ Container fulfillment-shipping-service-1 Recreate 
+ Container fulfillment-payment-service-1 Recreate 
+ Container fulfillment-payment-service-1 Recreated 
+ Container fulfillment-order-query-service-1 Recreated 
+ Container fulfillment-provider-simulator-1 Recreated 
+ Container fulfillment-order-service-1 Recreated 
+ Container fulfillment-inventory-service-1 Recreated 
+ Container fulfillment-shipping-service-1 Recreated 
+ Container fulfillment-customer-bff-1 Recreated 
+ Container fulfillment-api-gateway-1 Recreated 
+ Container fulfillment-kafka-1 Waiting 
+ Container fulfillment-redis-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-order-query-service-db-1 Waiting 
+ Container fulfillment-kafka-1 Waiting 
+ Container fulfillment-kafka-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-shipping-service-db-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-kafka-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-order-service-db-1 Waiting 
+ Container fulfillment-kafka-1 Waiting 
+ Container fulfillment-payment-service-db-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-provider-simulator-db-1 Waiting 
+ Container fulfillment-kafka-1 Waiting 
+ Container fulfillment-inventory-service-db-1 Waiting 
+ Container fulfillment-order-query-service-db-1 Healthy 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-order-service-db-1 Healthy 
+ Container fulfillment-redis-1 Healthy 
+ Container fulfillment-kafka-1 Healthy 
+ Container fulfillment-provider-simulator-db-1 Healthy 
+ Container fulfillment-kafka-1 Healthy 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-kafka-1 Healthy 
+ Container fulfillment-kafka-1 Healthy 
+ Container fulfillment-provider-simulator-1 Starting 
+ Container fulfillment-payment-service-db-1 Healthy 
+ Container fulfillment-payment-service-1 Starting 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-shipping-service-db-1 Healthy 
+ Container fulfillment-kafka-1 Healthy 
+ Container fulfillment-inventory-service-db-1 Healthy 
+ Container fulfillment-inventory-service-1 Starting 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-order-query-service-1 Starting 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-customer-bff-1 Starting 
+ Container fulfillment-customer-bff-1 Started 
+ Container fulfillment-kafka-1 Healthy 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-shipping-service-1 Starting 
+ Container fulfillment-order-service-1 Starting 
+ Container fulfillment-api-gateway-1 Starting 
+ Container fulfillment-inventory-service-1 Started 
+ Container fulfillment-order-query-service-1 Started 
+ Container fulfillment-provider-simulator-1 Started 
+ Container fulfillment-payment-service-1 Started 
+ Container fulfillment-shipping-service-1 Started 
+ Container fulfillment-order-service-1 Started 
+ Container fulfillment-api-gateway-1 Started 
+ Container fulfillment-order-service-db-1 Waiting 
+ Container fulfillment-customer-bff-1 Waiting 
+ Container fulfillment-inventory-service-1 Waiting 
+ Container fulfillment-shipping-service-1 Waiting 
+ Container fulfillment-api-gateway-1 Waiting 
+ Container fulfillment-keycloak-1 Waiting 
+ Container fulfillment-inventory-service-db-1 Waiting 
+ Container fulfillment-payment-service-db-1 Waiting 
+ Container fulfillment-provider-simulator-1 Waiting 
+ Container fulfillment-order-query-service-db-1 Waiting 
+ Container fulfillment-payment-service-1 Waiting 
+ Container fulfillment-provider-simulator-db-1 Waiting 
+ Container fulfillment-kafka-1 Waiting 
+ Container fulfillment-shipping-service-db-1 Waiting 
+ Container fulfillment-order-query-service-1 Waiting 
+ Container fulfillment-redis-1 Waiting 
+ Container fulfillment-order-service-1 Waiting 
+ Container fulfillment-otel-collector-1 Waiting 
+ Container fulfillment-redis-1 Healthy 
+ Container fulfillment-order-service-db-1 Healthy 
+ Container fulfillment-keycloak-1 Healthy 
+ Container fulfillment-shipping-service-db-1 Healthy 
+ Container fulfillment-provider-simulator-db-1 Healthy 
+ Container fulfillment-inventory-service-db-1 Healthy 
+ Container fulfillment-otel-collector-1 Healthy 
+ Container fulfillment-kafka-1 Healthy 
+ Container fulfillment-order-query-service-db-1 Healthy 
+ Container fulfillment-payment-service-db-1 Healthy 
+ Container fulfillment-customer-bff-1 Healthy 
+ Container fulfillment-api-gateway-1 Healthy 
+ Container fulfillment-inventory-service-1 Healthy 
+ Container fulfillment-order-query-service-1 Healthy 
+ Container fulfillment-payment-service-1 Healthy 
+ Container fulfillment-provider-simulator-1 Healthy 
+ Container fulfillment-order-service-1 Healthy 
+ Container fulfillment-shipping-service-1 Healthy 

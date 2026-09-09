@@ -1,0 +1,15 @@
+{
+  "orders": 30,
+  "arrival_rate_per_second": 2.0,
+  "max_workers": 8,
+  "elapsed_seconds": 14.516384707999805,
+  "acceptance_ms": {
+    "median": 17.488020499968115,
+    "p95": 214.05058299978919,
+    "max": 660.171999999875
+  },
+  "outcomes": {
+    "HTTPError": 30,
+    "unfinished": 0
+  }
+}

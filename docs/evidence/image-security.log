@@ -1,0 +1,11 @@
+2026-09-09T19:54:08Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-09-09T19:54:11Z	INFO	Detected OS	family="ubuntu" version="22.04"
+2026-09-09T19:54:11Z	INFO	[ubuntu] Detecting vulnerabilities...	os_version="22.04" pkg_num=143
+2026-09-09T19:54:11Z	INFO	Number of language-specific files	num=1
+2026-09-09T19:54:11Z	INFO	[jar] Detecting vulnerabilities...
+
+📣 [34mNotices:[0m
+  - Version 0.74.0 of Trivy is now available, current version is 0.65.0
+
+To suppress version checks, run Trivy scans with the --skip-version-check flag
+

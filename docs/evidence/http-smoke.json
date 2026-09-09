@@ -1,0 +1,9 @@
+{
+  "browser_assets_http": 200,
+  "real_keycloak_login": "passed",
+  "gateway_bff_aggregation": "passed",
+  "cross_customer_ownership": "404 as expected",
+  "gateway_sse_resume": "passed",
+  "version": 6,
+  "browser_visual_qa": "unavailable: no browser connected"
+}

@@ -1,0 +1,8 @@
+{
+  "order-service": "11.0.25",
+  "inventory-service": "11.0.25",
+  "payment-service": "11.0.25",
+  "shipping-service": "11.0.25",
+  "order-query-service": "11.0.25",
+  "provider-simulator": "11.0.25"
+}
