@@ -42,3 +42,11 @@ No dependency compatibility verifier is disabled. OpenAPI is maintained as a sta
 unnecessary documentation runtime dependency. Runtime compilation/startup and tests are additional compatibility
 evidence, not a substitute for the published matrix. Local image pins are reproducibility baselines, not a promise of
 latest security patches; scan and refresh before deployment.
+
+## Security patch override verified 2026-09-10
+
+Tomcat is explicitly pinned to **11.0.25**, overriding Boot 4.0.8's 11.0.24 through the supported parent property `tomcat.version`. The executed image scan found CVE-2026-65182, CVE-2026-65905 and CVE-2026-68525 in 11.0.24. Apache lists fixes in the same 11.0 patch line: https://tomcat.apache.org/security-11.html and https://tomcat.apache.org/tomcat-11.0-doc/changelog.html. Boot and Cloud versions remain unchanged; the full integration suite is rerun after this override.
+
+The local Keycloak realm explicitly defines the basic subject mapper (`oidc-sub-mapper`), verified against https://github.com/keycloak/keycloak/blob/26.6.3/services/src/main/java/org/keycloak/protocol/oidc/mappers/SubMapper.java. All resource servers additionally require a nonempty sub claim.
+
+Executable jars are recreated before Spring Boot repackaging (`maven.jar.forceCreation=true`) to prevent stale dependencies after a BOM-only edit. The final verification uses `clean verify` and inspects nested Tomcat jar versions. Maven documents this post-processing requirement at https://maven.apache.org/plugins/maven-jar-plugin/jar-mojo.html#forceCreation.

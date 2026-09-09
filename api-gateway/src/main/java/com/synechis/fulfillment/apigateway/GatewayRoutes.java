@@ -15,7 +15,9 @@ import java.util.UUID;
 public class GatewayRoutes {
     @Bean
     KeyResolver customerKey() {
-        return exchange -> exchange.getPrincipal().map(java.security.Principal::getName);
+        return exchange -> exchange.getPrincipal()
+                .flatMap(principal -> reactor.core.publisher.Mono.justOrEmpty(principal.getName()))
+                .filter(name -> !name.isBlank());
     }
 
     @Bean

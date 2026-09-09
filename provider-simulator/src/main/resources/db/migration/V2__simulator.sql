@@ -1,11 +1,1 @@
-create table provider_operation
-(
-    kind                  text not null,
-    id                    uuid not null,
-    fingerprint           text not null,
-    mode                  text not null,
-    state                 text not null,
-    attempts              int  not null default 1,
-    compensation_attempts int  not null default 0,
-    primary key (kind, id)
-);
+create table provider_operation(kind text not null,id uuid not null,fingerprint text not null,mode text not null,state text not null,attempts int not null default 1,compensation_attempts int not null default 0,primary key(kind,id));

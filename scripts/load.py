@@ -33,3 +33,6 @@ while ids and time.monotonic()<deadline:
   time.sleep(.15) # respects the shared edge limit; not a correctness-test synchronizer
 outcomes['unfinished']=len(ids);ordered=sorted(latencies)
 print(json.dumps({'orders':args.orders,'arrival_rate_per_second':args.rate,'max_workers':8,'elapsed_seconds':time.monotonic()-started,'acceptance_ms':{'median':statistics.median(latencies),'p95':ordered[min(len(ordered)-1,int(len(ordered)*.95))],'max':max(latencies)},'outcomes':outcomes},indent=2))
+
+# A load run with rejected requests or unfinished orders must fail automation.
+raise SystemExit(0 if outcomes.get("CONFIRMED", 0) == args.orders and not ids else 1)

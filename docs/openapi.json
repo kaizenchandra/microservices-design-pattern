@@ -47,28 +47,84 @@
                   "type": "string"
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderView"
+                }
+              }
             }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Invalid/missing JWT"
+            "description": "Invalid/missing JWT",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Insufficient role"
+            "description": "Insufficient role",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not owned, absent, or projection not yet visible"
+            "description": "Not owned, absent, or projection not yet visible",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "409": {
-            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "429": {
-            "description": "Rate or capacity limit"
+            "description": "Rate or capacity limit",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "503": {
-            "description": "Unavailable; retry commands with the same key"
+            "description": "Unavailable; retry commands with the same key",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           }
         }
       },
@@ -94,28 +150,84 @@
         ],
         "responses": {
           "200": {
-            "description": "Customer-owned items, page, size and consistency"
+            "description": "Customer-owned items, page, size and consistency",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderPage"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Invalid/missing JWT"
+            "description": "Invalid/missing JWT",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Insufficient role"
+            "description": "Insufficient role",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not owned, absent, or projection not yet visible"
+            "description": "Not owned, absent, or projection not yet visible",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "409": {
-            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "429": {
-            "description": "Rate or capacity limit"
+            "description": "Rate or capacity limit",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "503": {
-            "description": "Unavailable; retry commands with the same key"
+            "description": "Unavailable; retry commands with the same key",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           }
         }
       }
@@ -135,28 +247,84 @@
         "operationId": "orderDetails",
         "responses": {
           "200": {
-            "description": "order, projection, commandVersion and degraded; projection includes projectedAt and version"
+            "description": "order, projection, commandVersion and degraded; projection includes projectedAt and version",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDetails"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Invalid/missing JWT"
+            "description": "Invalid/missing JWT",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Insufficient role"
+            "description": "Insufficient role",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not owned, absent, or projection not yet visible"
+            "description": "Not owned, absent, or projection not yet visible",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "409": {
-            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "429": {
-            "description": "Rate or capacity limit"
+            "description": "Rate or capacity limit",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "503": {
-            "description": "Unavailable; retry commands with the same key"
+            "description": "Unavailable; retry commands with the same key",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           }
         }
       }
@@ -186,28 +354,84 @@
         ],
         "responses": {
           "202": {
-            "description": "Cancellation recorded or already in progress"
+            "description": "Cancellation recorded or already in progress",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderView"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Invalid/missing JWT"
+            "description": "Invalid/missing JWT",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Insufficient role"
+            "description": "Insufficient role",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not owned, absent, or projection not yet visible"
+            "description": "Not owned, absent, or projection not yet visible",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "409": {
-            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "429": {
-            "description": "Rate or capacity limit"
+            "description": "Rate or capacity limit",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "503": {
-            "description": "Unavailable; retry commands with the same key"
+            "description": "Unavailable; retry commands with the same key",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           }
         }
       }
@@ -247,25 +471,74 @@
             }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "401": {
-            "description": "Invalid/missing JWT"
+            "description": "Invalid/missing JWT",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "403": {
-            "description": "Insufficient role"
+            "description": "Insufficient role",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "404": {
-            "description": "Not owned, absent, or projection not yet visible"
+            "description": "Not owned, absent, or projection not yet visible",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "409": {
-            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "429": {
-            "description": "Rate or capacity limit"
+            "description": "Rate or capacity limit",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           },
           "503": {
-            "description": "Unavailable; retry commands with the same key"
+            "description": "Unavailable; retry commands with the same key",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
           }
         }
       }
@@ -354,6 +627,175 @@
           },
           "detail": {
             "type": "string"
+          }
+        }
+      },
+      "OrderView": {
+        "type": "object",
+        "required": [
+          "orderId",
+          "customer",
+          "status",
+          "version",
+          "sku",
+          "quantity",
+          "amount",
+          "currency",
+          "progress"
+        ],
+        "properties": {
+          "sku": {
+            "type": "string",
+            "pattern": "^[A-Z0-9-]{1,40}$"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "multipleOf": 0.01,
+            "maximum": 9999999999.99
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD",
+              "EUR",
+              "INR"
+            ]
+          },
+          "paymentMode": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "REJECT",
+              "TIMEOUT_BEFORE",
+              "TIMEOUT_AFTER",
+              "AMBIGUOUS",
+              "COMPENSATION_RETRY"
+            ],
+            "description": "LOCAL SIMULATOR behavior only"
+          },
+          "shippingMode": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "REJECT",
+              "TIMEOUT_BEFORE",
+              "TIMEOUT_AFTER",
+              "AMBIGUOUS",
+              "COMPENSATION_RETRY"
+            ],
+            "description": "LOCAL SIMULATOR behavior only"
+          },
+          "orderId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "customer": {
+            "type": "string",
+            "description": "Authenticated subject; never accepted from an identity header"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PENDING",
+              "CONFIRMED",
+              "COMPENSATING",
+              "MANUAL_RECOVERY",
+              "CANCELLED",
+              "FAILED"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "progress": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reason": {
+            "type": "string"
+          },
+          "projectedAt": {
+            "type": "string"
+          },
+          "consistency": {
+            "const": "eventual"
+          }
+        }
+      },
+      "OrderDetails": {
+        "type": "object",
+        "required": [
+          "order",
+          "projection",
+          "commandVersion",
+          "degraded"
+        ],
+        "properties": {
+          "order": {
+            "$ref": "#/components/schemas/OrderView"
+          },
+          "projection": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/OrderView"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "unavailable"
+                ],
+                "properties": {
+                  "unavailable": {
+                    "const": true
+                  }
+                }
+              }
+            ]
+          },
+          "commandVersion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "degraded": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OrderPage": {
+        "type": "object",
+        "required": [
+          "items",
+          "page",
+          "size",
+          "consistency"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderView"
+            }
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "consistency": {
+            "const": "eventual"
           }
         }
       }

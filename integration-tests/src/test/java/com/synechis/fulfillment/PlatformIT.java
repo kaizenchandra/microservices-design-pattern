@@ -583,4 +583,17 @@ class PlatformIT {
         }
     }
 
+    @Test
+    @Order(23)
+    void missingSubjectIsRejectedAtEveryBoundary() throws Exception {
+        var claims = new JWTClaimsSet.Builder().issuer(issuer).audience("shop")
+                .issueTime(new Date()).expirationTime(Date.from(Instant.now().plusSeconds(60))).build();
+        var jwt = new SignedJWT(new JWSHeader.Builder(JWSAlgorithm.RS256).keyID(rsa.getKeyID()).build(), claims);
+        jwt.sign(new RSASSASigner(rsa));
+        for (String service : List.of("api-gateway", "customer-bff", "order-service", "order-query-service")) {
+            String path = service.equals("api-gateway") || service.equals("customer-bff") ? "/api/orders" : "/orders";
+            assertThat(send(service, "GET", path, jwt.serialize(), null, Map.of()).statusCode()).isEqualTo(401);
+        }
+    }
+
 }

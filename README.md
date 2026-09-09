@@ -5,6 +5,8 @@ choreography, an event-sourced Order aggregate, CQRS, transactional outbox/inbox
 authorization and reconnectable SSE. Payment and shipping are **deterministic local simulators** with their own durable
 effects database.
 
+Verified locally: **23 integration tests + 3 unit tests passed**, all Compose services healthy, and 30/30 load-test orders confirmed. The running instance uses http://localhost:18080. See [verification details and remaining gaps](docs/verification.md).
+
 ## Run locally
 
 Requirements: Java 21, Docker Compose, approximately 8 GB free container memory, Python 3 and curl. Maven Wrapper is
@@ -35,6 +37,7 @@ before deployment.
 ./scripts/demo.sh COMPENSATION_RETRY REJECT # first void fails, durable retry succeeds
 ./scripts/demo.sh AMBIGUOUS SUCCESS       # unresolved result; see reconciliation runbook
 TOKEN=$(./scripts/token.sh alice) python3 scripts/load.py --orders 30 --rate 2
+python3 scripts/smoke.py                    # after at least one completed order
 ```
 
 The demo command streams SSE until interrupted. Use the browser to list orders, cancel a pending order or reconnect.
@@ -74,6 +77,7 @@ databases only as a test oracle.
 - Wrong Java: run `java -version` and `./mvnw -version`; set JAVA_HOME to Java 21.
 - Docker unavailable: start Docker/OrbStack. Testcontainers must reach its socket; with a nonstandard socket set
   DOCKER_HOST. Tests intentionally fail rather than silently skip.
+- Applied Flyway migration files are immutable, including whitespace. Never reformat them; add a new migration for schema changes.
 - Startup: inspect `docker compose ps` and the failing service log. Flyway runs before business traffic. Keycloak import
   runs at first startup; local realm edits require an explicit identity reset/reimport.
 - 401: tokens must have issuer http://localhost:8180/realms/shop and audience shop; internal JWKS URL differs only for

@@ -21,6 +21,25 @@
         "include.in.token.scope": "true",
         "display.on.consent.screen": "false"
       }
+    },
+    {
+      "name": "basic",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "name": "subject",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-sub-mapper",
+          "config": {
+            "access.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ]
     }
   ],
   "clients": [
@@ -38,9 +57,7 @@
         "http://localhost:18080"
       ],
       "defaultClientScopes": [
-        "profile",
-        "email",
-        "roles"
+        "basic"
       ],
       "optionalClientScopes": [],
       "protocolMappers": [
@@ -62,6 +79,7 @@
       "serviceAccountsEnabled": true,
       "standardFlowEnabled": false,
       "defaultClientScopes": [
+        "basic",
         "ops"
       ],
       "protocolMappers": [
@@ -94,7 +112,8 @@
       ],
       "realmRoles": [
         "customer"
-      ]
+      ],
+      "id": "399b77d6-aa76-5ef1-8734-9b14960cb141"
     },
     {
       "username": "bob",
@@ -112,7 +131,8 @@
       ],
       "realmRoles": [
         "customer"
-      ]
+      ],
+      "id": "b9dc871b-3ffe-581a-bc39-7fd1568f8a73"
     }
   ]
 }

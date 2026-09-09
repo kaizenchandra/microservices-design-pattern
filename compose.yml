@@ -143,6 +143,7 @@ services:
         MODULE: order-service
     image: fulfillment/order-service:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
@@ -181,6 +182,7 @@ services:
         MODULE: inventory-service
     image: fulfillment/inventory-service:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
@@ -219,6 +221,7 @@ services:
         MODULE: payment-service
     image: fulfillment/payment-service:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
@@ -257,6 +260,7 @@ services:
         MODULE: shipping-service
     image: fulfillment/shipping-service:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
@@ -295,6 +299,7 @@ services:
         MODULE: order-query-service
     image: fulfillment/order-query-service:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
@@ -333,6 +338,7 @@ services:
         MODULE: provider-simulator
     image: fulfillment/provider-simulator:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
@@ -371,6 +377,7 @@ services:
         MODULE: customer-bff
     image: fulfillment/customer-bff:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
@@ -404,6 +411,7 @@ services:
         MODULE: api-gateway
     image: fulfillment/api-gateway:local
     environment:
+      MANAGEMENT_OTLP_METRICS_EXPORT_ENABLED: 'false'
       MANAGEMENT_OPENTELEMETRY_TRACING_EXPORT_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
       OIDC_ISSUER: http://localhost:8180/realms/shop
       OIDC_JWKS: http://keycloak:8080/realms/shop/protocol/openid-connect/certs
