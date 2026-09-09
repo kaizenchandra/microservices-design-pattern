@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fulfillment-config
+  namespace: fulfillment
+data:
+  KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  OIDC_ISSUER: https://identity.example.com/realms/shop
+  OIDC_JWKS: https://identity.example.com/realms/shop/protocol/openid-connect/certs
+  PROVIDER_URL: http://provider-simulator:8080
+  ORDER_URL: http://order-service:8080
+  QUERY_URL: http://order-query-service:8080
+  BFF_URL: http://customer-bff:8080
+  REDIS_HOST: redis

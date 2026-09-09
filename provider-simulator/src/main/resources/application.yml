@@ -1,0 +1,79 @@
+spring:
+  task:
+    scheduling:
+      pool:
+        size: 4
+  application:
+    name: provider-simulator
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/provider_simulator}
+    username: ${DB_USER:app}
+    password: ${DB_PASSWORD:local-only}
+    hikari:
+      maximum-pool-size: 12
+      connection-timeout: 3000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    locations: classpath:db/runtime,classpath:db/migration
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 32
+    listener:
+      ack-mode: manual_immediate
+      observation-enabled: true
+    template:
+      observation-enabled: true
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 1
+        delivery.timeout.ms: 4000
+        request.timeout.ms: 2000
+        max.block.ms: 3000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OIDC_ISSUER:http://localhost:8180/realms/shop}
+          jwk-set-uri: ${OIDC_JWKS:http://localhost:8180/realms/shop/protocol/openid-connect/certs}
+          audiences: shop
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+server:
+  port: ${PORT:8080}
+  shutdown: graceful
+  max-http-request-header-size: 16KB
+  tomcat:
+    threads:
+      max: 64
+    max-connections: 256
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db
+  tracing:
+    sampling:
+      probability: 1.0
+logging:
+  structured:
+    format:
+      console: ecs

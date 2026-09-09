@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-simulator
+  namespace: fulfillment
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: provider-simulator}
+  template:
+    metadata:
+      labels: {app: provider-simulator}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+      containers:
+      - name: application
+        image: fulfillment/provider-simulator:local
+        imagePullPolicy: IfNotPresent
+        ports:
+        - {name: http, containerPort: 8080}
+        envFrom:
+        - configMapRef: {name: fulfillment-config}
+        env:
+        - name: DB_URL
+          valueFrom:
+            secretKeyRef: {name: provider-simulator-database, key: url}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef: {name: provider-simulator-database, key: username}
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef: {name: provider-simulator-database, key: password}
+        - name: PROVIDER_KEY
+          valueFrom:
+            secretKeyRef: {name: simulator-credential, key: key}
+        resources:
+          requests: {cpu: 250m, memory: 256Mi}
+          limits: {cpu: '1', memory: 512Mi}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: {drop: [ALL]}
+        startupProbe:
+          httpGet: {path: /actuator/health/readiness, port: http}
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          httpGet: {path: /actuator/health/readiness, port: http}
+          periodSeconds: 5
+        livenessProbe:
+          httpGet: {path: /actuator/health/liveness, port: http}
+          periodSeconds: 10
+        volumeMounts:
+        - {name: tmp, mountPath: /tmp}
+      volumes:
+      - name: tmp
+        emptyDir: {sizeLimit: 128Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: provider-simulator
+  namespace: fulfillment
+spec:
+  selector: {app: provider-simulator}
+  ports:
+  - {name: http, port: 8080, targetPort: http}

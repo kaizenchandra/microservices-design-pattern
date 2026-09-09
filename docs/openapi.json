@@ -1,0 +1,362 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Customer Fulfillment BFF",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "security": [
+    {
+      "oidc": []
+    }
+  ],
+  "paths": {
+    "/api/orders": {
+      "post": {
+        "operationId": "placeOrder",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlaceOrder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted before fulfillment; returns orderId, version and status",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/missing JWT"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Not owned, absent, or projection not yet visible"
+          },
+          "409": {
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+          },
+          "429": {
+            "description": "Rate or capacity limit"
+          },
+          "503": {
+            "description": "Unavailable; retry commands with the same key"
+          }
+        }
+      },
+      "get": {
+        "operationId": "listOrders",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer-owned items, page, size and consistency"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/missing JWT"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Not owned, absent, or projection not yet visible"
+          },
+          "409": {
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+          },
+          "429": {
+            "description": "Rate or capacity limit"
+          },
+          "503": {
+            "description": "Unavailable; retry commands with the same key"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "orderDetails",
+        "responses": {
+          "200": {
+            "description": "order, projection, commandVersion and degraded; projection includes projectedAt and version"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/missing JWT"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Not owned, absent, or projection not yet visible"
+          },
+          "409": {
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+          },
+          "429": {
+            "description": "Rate or capacity limit"
+          },
+          "503": {
+            "description": "Unavailable; retry commands with the same key"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/cancel": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "operationId": "cancelOrder",
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Cancellation recorded or already in progress"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/missing JWT"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Not owned, absent, or projection not yet visible"
+          },
+          "409": {
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+          },
+          "429": {
+            "description": "Rate or capacity limit"
+          },
+          "503": {
+            "description": "Unavailable; retry commands with the same key"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/events": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "trackOrder",
+        "parameters": [
+          {
+            "name": "Last-Event-ID",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SSE order/reset events; id is aggregate version; heartbeat comments",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid/missing JWT"
+          },
+          "403": {
+            "description": "Insufficient role"
+          },
+          "404": {
+            "description": "Not owned, absent, or projection not yet visible"
+          },
+          "409": {
+            "description": "Conflicting idempotency key, stale version, or ineligible cancellation"
+          },
+          "429": {
+            "description": "Rate or capacity limit"
+          },
+          "503": {
+            "description": "Unavailable; retry commands with the same key"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oidc": {
+        "type": "openIdConnect",
+        "openIdConnectUrl": "http://localhost:8180/realms/shop/.well-known/openid-configuration"
+      }
+    },
+    "schemas": {
+      "PlaceOrder": {
+        "type": "object",
+        "required": [
+          "sku",
+          "quantity",
+          "amount",
+          "currency",
+          "paymentMode",
+          "shippingMode"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "sku": {
+            "type": "string",
+            "pattern": "^[A-Z0-9-]{1,40}$"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "amount": {
+            "type": "number",
+            "minimum": 0.01,
+            "multipleOf": 0.01,
+            "maximum": 9999999999.99
+          },
+          "currency": {
+            "type": "string",
+            "enum": [
+              "USD",
+              "EUR",
+              "INR"
+            ]
+          },
+          "paymentMode": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "REJECT",
+              "TIMEOUT_BEFORE",
+              "TIMEOUT_AFTER",
+              "AMBIGUOUS",
+              "COMPENSATION_RETRY"
+            ],
+            "description": "LOCAL SIMULATOR behavior only"
+          },
+          "shippingMode": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "REJECT",
+              "TIMEOUT_BEFORE",
+              "TIMEOUT_AFTER",
+              "AMBIGUOUS",
+              "COMPENSATION_RETRY"
+            ],
+            "description": "LOCAL SIMULATOR behavior only"
+          }
+        }
+      },
+      "Problem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-bff
+  namespace: fulfillment
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: customer-bff}
+  template:
+    metadata:
+      labels: {app: customer-bff}
+    spec:
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+      containers:
+      - name: application
+        image: fulfillment/customer-bff:local
+        imagePullPolicy: IfNotPresent
+        ports:
+        - {name: http, containerPort: 8080}
+        envFrom:
+        - configMapRef: {name: fulfillment-config}
+        resources:
+          requests: {cpu: 250m, memory: 256Mi}
+          limits: {cpu: '1', memory: 512Mi}
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities: {drop: [ALL]}
+        startupProbe:
+          httpGet: {path: /actuator/health/readiness, port: http}
+          periodSeconds: 5
+          failureThreshold: 60
+        readinessProbe:
+          httpGet: {path: /actuator/health/readiness, port: http}
+          periodSeconds: 5
+        livenessProbe:
+          httpGet: {path: /actuator/health/liveness, port: http}
+          periodSeconds: 10
+        volumeMounts:
+        - {name: tmp, mountPath: /tmp}
+      volumes:
+      - name: tmp
+        emptyDir: {sizeLimit: 128Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-bff
+  namespace: fulfillment
+spec:
+  selector: {app: customer-bff}
+  ports:
+  - {name: http, port: 8080, targetPort: http}

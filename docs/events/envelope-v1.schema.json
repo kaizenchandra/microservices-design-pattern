@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fulfillment:event:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "eventType",
+    "producer",
+    "correlationId",
+    "causationId",
+    "eventId",
+    "aggregateId",
+    "schemaVersion",
+    "aggregateVersion",
+    "occurredAt",
+    "traceContext",
+    "payload"
+  ],
+  "properties": {
+    "eventType": {
+      "type": "string",
+      "enum": [
+        "OrderPlaced",
+        "OrderAborting",
+        "OrderConfirmed",
+        "OrderState",
+        "InventoryReserved",
+        "InventoryRejected",
+        "InventoryExpired",
+        "InventoryCommitted",
+        "InventoryReleased",
+        "PaymentAuthorized",
+        "PaymentRejected",
+        "PaymentVoided",
+        "ShipmentBooked",
+        "ShipmentRejected",
+        "ShipmentCancelled",
+        "RecoveryRequired"
+      ]
+    },
+    "producer": {
+      "type": "string"
+    },
+    "correlationId": {
+      "type": "string"
+    },
+    "causationId": {
+      "type": "string"
+    },
+    "eventId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "aggregateId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "aggregateVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "traceContext": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "payload": {
+      "type": "object",
+      "required": [
+        "customer"
+      ],
+      "properties": {
+        "customer": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "sku": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "currency": {
+          "enum": [
+            "USD",
+            "EUR",
+            "INR"
+          ]
+        }
+      }
+    }
+  }
+}
