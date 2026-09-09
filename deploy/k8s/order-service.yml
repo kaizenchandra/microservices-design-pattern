@@ -6,10 +6,10 @@ metadata:
 spec:
   replicas: 2
   selector:
-    matchLabels: {app: order-service}
+    matchLabels: { app: order-service }
   template:
     metadata:
-      labels: {app: order-service}
+      labels: { app: order-service }
     spec:
       automountServiceAccountToken: false
       terminationGracePeriodSeconds: 30
@@ -19,45 +19,45 @@ spec:
         runAsGroup: 10001
         fsGroup: 10001
       containers:
-      - name: application
-        image: fulfillment/order-service:local
-        imagePullPolicy: IfNotPresent
-        ports:
-        - {name: http, containerPort: 8080}
-        envFrom:
-        - configMapRef: {name: fulfillment-config}
-        env:
-        - name: DB_URL
-          valueFrom:
-            secretKeyRef: {name: order-service-database, key: url}
-        - name: DB_USER
-          valueFrom:
-            secretKeyRef: {name: order-service-database, key: username}
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef: {name: order-service-database, key: password}
-        resources:
-          requests: {cpu: 250m, memory: 256Mi}
-          limits: {cpu: '1', memory: 512Mi}
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          capabilities: {drop: [ALL]}
-        startupProbe:
-          httpGet: {path: /actuator/health/readiness, port: http}
-          periodSeconds: 5
-          failureThreshold: 60
-        readinessProbe:
-          httpGet: {path: /actuator/health/readiness, port: http}
-          periodSeconds: 5
-        livenessProbe:
-          httpGet: {path: /actuator/health/liveness, port: http}
-          periodSeconds: 10
-        volumeMounts:
-        - {name: tmp, mountPath: /tmp}
+        - name: application
+          image: fulfillment/order-service:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - { name: http, containerPort: 8080 }
+          envFrom:
+            - configMapRef: { name: fulfillment-config }
+          env:
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef: { name: order-service-database, key: url }
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef: { name: order-service-database, key: username }
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef: { name: order-service-database, key: password }
+          resources:
+            requests: { cpu: 250m, memory: 256Mi }
+            limits: { cpu: '1', memory: 512Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ ALL ] }
+          startupProbe:
+            httpGet: { path: /actuator/health/readiness, port: http }
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: http }
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: http }
+            periodSeconds: 10
+          volumeMounts:
+            - { name: tmp, mountPath: /tmp }
       volumes:
-      - name: tmp
-        emptyDir: {sizeLimit: 128Mi}
+        - name: tmp
+          emptyDir: { sizeLimit: 128Mi }
 ---
 apiVersion: v1
 kind: Service
@@ -65,6 +65,6 @@ metadata:
   name: order-service
   namespace: fulfillment
 spec:
-  selector: {app: order-service}
+  selector: { app: order-service }
   ports:
-  - {name: http, port: 8080, targetPort: http}
+    - { name: http, port: 8080, targetPort: http }

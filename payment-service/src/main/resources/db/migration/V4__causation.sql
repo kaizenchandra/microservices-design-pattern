@@ -1,1 +1,2 @@
-alter table operation add column cause jsonb;
+alter table operation
+    add column cause jsonb;

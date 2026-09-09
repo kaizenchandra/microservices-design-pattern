@@ -4,7 +4,7 @@ receivers:
       http:
         endpoint: 0.0.0.0:4318
 processors:
-  batch: {}
+  batch: { }
 exporters:
   debug:
     verbosity: basic
@@ -12,9 +12,9 @@ extensions:
   health_check:
     endpoint: 0.0.0.0:13133
 service:
-  extensions: [health_check]
+  extensions: [ health_check ]
   pipelines:
     traces:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [debug]
+      receivers: [ otlp ]
+      processors: [ batch ]
+      exporters: [ debug ]
